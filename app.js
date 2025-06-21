@@ -16,6 +16,22 @@ app.get("/user/getAll", userAuth, (req, res) => {
   res.send("All data deleted");
 });
 
+//error handling
+// app.get("/getuserdata", (req, res) => {
+//   try {
+
+//     res.send("User data sent");
+//   } catch (error) {
+//     res.status(401).send("Error occured");
+//   }
+// });
+
+// app.use("/", (err, req, res, next) => {
+//   if (err) {
+//     res.status(500).send("Something went wrong . . .");
+//   }
+// });
+
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
