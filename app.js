@@ -13,7 +13,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.send("User saved successfully ;)");
   } catch (error) {
-    console.log(`Error saving user in db, ${error}`);
+    res.send(`Error saving user in db, ${error}`);
   }
 });
 
@@ -60,14 +60,15 @@ app.patch("/update", async (req, res) => {
   //console.log(data);
 
   try {
-    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
-      returnDocument: "after",
+    const user = await User.findByIdAndUpdate(userId, data, {
+      new: true,
+      runValidators: true,
     });
     console.log(user);
 
     res.send("User updated");
   } catch (error) {
-    res.status(400).send("Something went wrong");
+    res.status(400).send("Update Failed" + error.message);
   }
 });
 
@@ -76,7 +77,7 @@ connectDB()
   .then(() => {
     console.log("DB connected successfully");
     //after connecting to db, server will run (good approach)
-    app.listen(7777, () => {
+    app.listen(4000, () => {
       console.log("Server is running");
     });
   })
