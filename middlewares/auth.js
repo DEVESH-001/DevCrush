@@ -1,26 +1,31 @@
-const adminAuth = (req, res, next) => {
-  console.log("checking Admin is authorized...");
-  const token = 1;
-  const isAdminAuth = token === 1;
-  if (!isAdminAuth) {
-    res.status(401).send("Not Authrorized");
-  } else {
-    next();
-  }
-};
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
-const userAuth = (req, res, next) => {
-  console.log("User auth is checking...");
-  const token = 2;
-  const isUserAdmim = token === 2;
-  if (!isUserAdmim) {
-    res.status(401);
-  } else {
-    next();
+const userAuth = async (req, res, next) => {
+  try {
+    // read the token from req cookies
+    const { token } = req.cookies;
+    // if not token found
+    if (!token) {
+      throw new Error("Token is not valid");
+    }
+    // validate token
+    const decodedObj = await jwt.verify(token, "your_jwt_secret@1");
+    const { _id } = decodedObj;
+    // find the user
+    const user = await User.findById(_id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    //if i find the user than attact the user (req.obj), as we are also finding the user in the app.js db, so there is no need to find there as we are already finding the user here
+
+    req.user = user; //attaching the use to req.obj becasue
+    next(); //is called to move to req handler
+  } catch (error) {
+    res.status(404).send("Error: " + error.message);
   }
 };
 
 module.exports = {
-  adminAuth,
   userAuth,
 };

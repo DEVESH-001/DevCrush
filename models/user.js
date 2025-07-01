@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -67,5 +69,26 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// Method to get JWT token for the user for authentication , we have created this function to get the JWT token for the user as it will help un authenticating the user so that we dont need to find the user in the db again and again
+//# Don't use arrow fun beacuse is will not work with 'this' keyword
+userSchema.methods.getJWT = async function () {
+  const user = this;
+  const token = await jwt.sign({ _id: user._id }, "your_jwt_secret@1", {
+    expiresIn: "7d",
+  });
+  return token;
+};
+
+userSchema.methods.validatePassword = async function (passwordInputByUser) {
+  const user = this;
+  const passwordHashed = user.password;
+  // Compare the password present in the db provided by the user, #don't interchange the orders
+  const isPasswordValid = await bcrypt.compare(
+    passwordInputByUser,
+    passwordHashed
+  );
+  return isPasswordValid;
+};
 
 module.exports = mongoose.model("User", userSchema);
