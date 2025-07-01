@@ -19,7 +19,7 @@ const userAuth = async (req, res, next) => {
     }
     //if i find the user than attact the user (req.obj), as we are also finding the user in the app.js db, so there is no need to find there as we are already finding the user here
 
-    req.user = user; //attaching the use to req.obj becasue
+    req.user = user; //attaching the use to req.obj (this is the loggedIn user)
     next(); //is called to move to req handler
   } catch (error) {
     res.status(404).send("Error: " + error.message);
