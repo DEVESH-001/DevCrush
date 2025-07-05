@@ -2,7 +2,6 @@ const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
-const { userAuth } = require("./middlewares/auth");
 
 //adding middleware
 app.use(express.json());
