@@ -11,12 +11,13 @@ app.use(cookieParser());
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
+const { userRouter } = require("./routes/user");
 
 //using the router, ("/") ->base url for all the routes
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
-
+app.use("/", userRouter);
 
 //calling the connectDB fn from db.js
 connectDB()

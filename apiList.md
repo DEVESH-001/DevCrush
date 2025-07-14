@@ -22,7 +22,7 @@ authRouter
 ## userRouter
 
 - GET /user/connections
-- GET /user/requests
+- GET /user/requests/received
 - GET/user/feed
 
 - GET /connections
@@ -30,3 +30,4 @@ authRouter
   Status : ignore, intrested, accepted, rejected
 
 learn about it - schema.pre('save') //schema pre fetch
+read about ref & populate (<https://mongoosejs.com/docs/populate.html>)
