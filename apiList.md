@@ -29,5 +29,7 @@ authRouter
 - GET /
   Status : ignore, intrested, accepted, rejected
 
+<https://www.mongodb.com/docs/manual/reference/operator/query-logical/>
+
 learn about it - schema.pre('save') //schema pre fetch
 read about ref & populate (<https://mongoosejs.com/docs/populate.html>)

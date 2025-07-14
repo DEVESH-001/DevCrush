@@ -5,7 +5,7 @@ const authRouter = express.Router();
 
 const { validateSignUpData } = require("../utils/validation");
 const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const User = require("../models/userModel");
 const { userAuth } = require("../middlewares/auth");
 
 authRouter.post("/signup", async (req, res) => {
@@ -51,11 +51,12 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.post("/logout",userAuth,(req,res)=>{
-  //more cleanup can be done 
-  res.cookie('token',null,{ // null is the value of the cookie
-    expires:new Date(Date.now()),
-  })
+authRouter.post("/logout", userAuth, (req, res) => {
+  //more cleanup can be done
+  res.cookie("token", null, {
+    // null is the value of the cookie
+    expires: new Date(Date.now()),
+  });
   res.send("You have been logout 😔");
-})
+});
 module.exports = authRouter;
