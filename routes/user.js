@@ -63,9 +63,16 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
   }
 });
 
-userRouter.get("/user/feed", userAuth, async (req, res) => {
+userRouter.get("/user/feed/", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
+    //pagination in mgdb
+    const page = parseInt(req.query.page) || 1; //assume pageno.1
+    let limit = parseInt(req.query.limit) || 10;
+    limit= limit >10 ? 10 : limit;
+    
+    const skip = (page - 1) * limit;
+
     //find all the connection req(rej+ acc)
     const connectionRequests = await ConnectionRequest.find({
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
@@ -86,7 +93,10 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
         { _id: { $nin: Array.from(hideUsersFromFeed) } }, // nin: not in
         { _id: { $ne: loggedInUser._id } }, // /!=
       ], //find all the users whoes _id is not present in the hideUserFeed[],also dont show your own card here
-    }).select(USER_SAFE_DATA);
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
     res.send(users);
   } catch (error) {
     res.status(400).send("Error " + error);

@@ -23,7 +23,12 @@ authRouter
 
 - GET /user/connections
 - GET /user/requests/received
-- GET/user/feed (current)
+- GET/user/feed
+- adding pagination in mgdb /feed/?page=1&limit=10 =>first 10 users 1-10
+- mgdb fncs .skip() & .limit() => .skip(0) & limit(10)
+- /feed?page=3&limit=10 => .skip(20) & limit(10)
+
+## formula skip = (pageNo - 1) * limit ()
 
 - GET /connections
 - GET /
