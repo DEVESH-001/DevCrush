@@ -8,7 +8,7 @@ const Body = () => {
   return (
     <div>
       <Navbar />
-      <main >
+      <main>
         <Outlet />
       </main>
       <Footer />
