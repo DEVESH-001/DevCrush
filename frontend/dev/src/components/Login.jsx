@@ -1,17 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  //now we need a hook useDispatch to dispatch actions to the store, so we can add data to the store
+  const dispatch = useDispatch();
   //authRouter.post("/login"
   const handleLogin = async () => {
     //making api call to our backend
     try {
-      // eslint-disable-next-line no-unused-vars
       const res = await axios.post(
-        "http://localhost:4000/login",
+        BASE_URL + "/login",
         {
           emailId,
           password,
@@ -20,6 +25,10 @@ const Login = () => {
           withCredentials: true,
         }
       );
+      console.log(res.data);
+      //dispatching the action to add user data to the store, basically we are adding the user data to the redux store, so that we can access it in any component, this will help us manage the user state more effectively as we can access it from any component without passing it down as props
+      dispatch(addUser(res.data));
+      return navigate("/feed");
     } catch (error) {
       console.error(error);
     }
