@@ -22,7 +22,7 @@ const Login = () => {
           password,
         },
         {
-          withCredentials: true,
+          withCredentials: true, // this will allow us to send cookies with the request
         }
       );
       console.log(res.data);

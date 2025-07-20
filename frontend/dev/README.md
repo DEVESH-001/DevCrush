@@ -15,3 +15,5 @@
 - install redux & redux-toolkit
 - create redux store (<https://redux-toolkit.js.org/tutorials/quick-start>) appStore.js, now provide this store to the application(App.jsx) wrap it in provider
 - npm i react-redux + reduxjs/toolkit => configureStore => Provider => createSlice => add reducer to store
+
+- refreshing the page should not logged out
