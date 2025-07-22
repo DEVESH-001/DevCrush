@@ -9,7 +9,7 @@ const userSlice = createSlice({
     },
     // eslint-disable-next-line no-unused-vars
     removeUser: (state, action) => {
-      return null;
+      return null; 
     },
   },
 });

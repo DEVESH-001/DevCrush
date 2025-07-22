@@ -37,7 +37,7 @@ const Navbar = () => {
         {user && (
           <div className="dropdown dropdown-end">
             <span className="px-3 py-2 font-thin">
-              Welcome, {user.firstName}
+              Welcome, {user.firstname}
             </span>
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
@@ -55,7 +55,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to={"/connections"}>Connections</Link>
               </li>
               <li>
                 <a onClick={handleLogout}>Logout</a>

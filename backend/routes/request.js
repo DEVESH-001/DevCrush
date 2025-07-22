@@ -52,7 +52,7 @@ requestRouter.post(
 
       res.json({
         message:
-          req.user.firstName + " is " + status + " in " + toUser.firstName,
+          req.user.firstname + " is " + status + " in " + toUser.firstname,
         data,
       });
     } catch (error) {

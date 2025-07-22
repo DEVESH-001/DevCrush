@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../../utils/userSlice";
 
 const EditProfile = ({ user }) => {
-  const [firstName, setFirstname] = useState(user.firstName);
+  const [firstname, setfirstname] = useState(user.firstname);
   const [lastname, setLastname] = useState(user.lastname);
   const [about, setAbout] = useState(user.about);
   const [skills, setSkills] = useState(user.skills);
@@ -23,7 +23,7 @@ const EditProfile = ({ user }) => {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
         {
-          firstName: firstName,
+          firstname: firstname,
           lastname: lastname,
           gender,
           age: Number(age),
@@ -57,9 +57,9 @@ const EditProfile = ({ user }) => {
                 <input
                   type="text"
                   className="grow"
-                  placeholder="Firstname"
-                  value={firstName}
-                  onChange={(e) => setFirstname(e.target.value)}
+                  placeholder="firstname"
+                  value={firstname}
+                  onChange={(e) => setfirstname(e.target.value)}
                 />
               </label>
               <label className="input mt-6">
@@ -142,7 +142,7 @@ const EditProfile = ({ user }) => {
 
       <UserCard
         user={{
-          firstName,
+          firstname,
           lastname,
           age,
           gender,

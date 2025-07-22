@@ -18,3 +18,5 @@
 
 - refreshing the page should not logged out
 - create a feedSlice in utils for loading feed and import is in app store
+
+- connections, store connection in appStore/reduxStore or use stateVariables

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,15 +28,13 @@ const Feed = () => {
 
   return (
     feed && (
-      <div className="flex justify-center items-center my-12">
-        <UserCard user={feed[1]} />
-
+      <div className="flex justify-center items-center my-12 flex-col">
+        {feed.map((user, index) => (
+          <UserCard key={index} user={user} />
+        ))}
       </div>
     )
   );
 };
 
 export default Feed;
-// {
-//   feed.map((user, index) => <UserCard key={index} user={user} />);
-// }

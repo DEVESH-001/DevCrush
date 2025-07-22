@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: {
+    firstname: {
       type: String,
       required: true,
       minLength: 4,
@@ -76,7 +76,7 @@ const userSchema = new mongoose.Schema(
 );
 
 //let say i want to find a user by 1st & last name, just create a schema
-userSchema.index({ firstName: 1, lastname: 1 });
+userSchema.index({ firstname: 1, lastname: 1 });
 
 // Method to get JWT token for the user for authentication , we have created this function to get the JWT token for the user as it will help un authenticating the user so that we dont need to find the user in the db again and again. Don't use arrow fun beacuse is will not work with 'this' keyword
 userSchema.methods.getJWT = async function () {

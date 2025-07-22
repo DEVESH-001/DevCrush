@@ -1,5 +1,5 @@
 const UserCard = ({ user }) => {
-  const { firstName, lastname, photoUrl, age, gender, about, skills } = user;
+  const { firstname, lastname, photoUrl, age, gender, about, skills } = user;
   console.log(user);
 
   return (
@@ -9,7 +9,7 @@ const UserCard = ({ user }) => {
           <img src={photoUrl} alt="User_image" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{firstName + " " + lastname}</h2>
+          <h2 className="card-title">{firstname + " " + lastname}</h2>
           <p>{about}</p>
           {age && gender && <p>{age + " " + ", " + gender}</p>}
           {skills && <p>{skills}</p>}

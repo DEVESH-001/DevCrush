@@ -11,12 +11,12 @@ const { userAuth } = require("../middlewares/auth");
 authRouter.post("/signup", async (req, res) => {
   try {
     validateSignUpData(req); //validate the data from req.body
-    const { firstName, lastname, emailId, password } = req.body;
+    const { firstname, lastname, emailId, password } = req.body;
     //hashing password
     const passwordHash = await bcrypt.hash(password, 10);
     //create a new user instance
     const user = new User({
-      firstName,
+      firstname,
       lastname,
       emailId,
       password: passwordHash,
