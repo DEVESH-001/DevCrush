@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailId, setEmailId] = useState("devesh@gmail.com");
+  const [password, setPassword] = useState("Devesh@123");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   //now we need a hook useDispatch to dispatch actions to the store, so we can add data to the store
   const dispatch = useDispatch();
@@ -25,12 +26,11 @@ const Login = () => {
           withCredentials: true, // this will allow us to send cookies with the request
         }
       );
-      console.log(res.data);
-      //dispatching the action to add user data to the store, basically we are adding the user data to the redux store, so that we can access it in any component, this will help us manage the user state more effectively as we can access it from any component without passing it down as props
       dispatch(addUser(res.data));
       return navigate("/feed");
+      //dispatching the action to add user data to the store, basically we are adding the user data to the redux store, so that we can access it in any component, this will help us manage the user state more effectively as we can access it from any component without passing it down as props
     } catch (error) {
-      console.error(error);
+      setError(error?.response?.data || "Login failed");
     }
   };
 
@@ -61,6 +61,7 @@ const Login = () => {
               />
             </label>
           </div>
+          <p className="text-red-500">{error}</p>
           <div className="card-actions justify-end mt-2">
             <button className="btn btn-primary" onClick={handleLogin}>
               Log In

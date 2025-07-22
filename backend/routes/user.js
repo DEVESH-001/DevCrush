@@ -63,14 +63,14 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
   }
 });
 
-userRouter.get("/user/feed/", userAuth, async (req, res) => {
+userRouter.get("/feed/", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
     //pagination in mgdb
     const page = parseInt(req.query.page) || 1; //assume pageno.1
     let limit = parseInt(req.query.limit) || 10;
-    limit= limit >10 ? 10 : limit;
-    
+    limit = limit > 10 ? 10 : limit;
+
     const skip = (page - 1) * limit;
 
     //find all the connection req(rej+ acc)

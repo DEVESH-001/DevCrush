@@ -37,7 +37,7 @@ const Body = () => {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

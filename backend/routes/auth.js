@@ -36,7 +36,7 @@ authRouter.post("/login", async (req, res) => {
     if (!user) {
       throw new Error("Invalid Credentials 😵");
     }
-    const isPasswordValid = user.validatePassword(password);
+    const isPasswordValid = await user.validatePassword(password);
     if (isPasswordValid) {
       //if password is valid, create a JWT token for the user
       const token = await user.getJWT(); //getJWT() : user model
@@ -47,7 +47,7 @@ authRouter.post("/login", async (req, res) => {
       throw new Error("Invalid Credentials 😵");
     }
   } catch (error) {
-    res.send("Error" + error);
+    res.status(401).send("Error: " + error.message);
   }
 });
 

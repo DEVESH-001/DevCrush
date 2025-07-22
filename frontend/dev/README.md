@@ -17,3 +17,4 @@
 - npm i react-redux + reduxjs/toolkit => configureStore => Provider => createSlice => add reducer to store
 
 - refreshing the page should not logged out
+- create a feedSlice in utils for loading feed and import is in app store
