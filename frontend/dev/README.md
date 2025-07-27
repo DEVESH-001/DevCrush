@@ -21,4 +21,7 @@
 
 - connections, store connection in appStore/reduxStore or use stateVariables
 
-- request
+- request : added removeRequest in requestSlice
+
+- User Card:
+- send request functionality

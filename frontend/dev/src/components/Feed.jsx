@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,16 +23,18 @@ const Feed = () => {
 
   useEffect(() => {
     getFeed();
+    // eslint-disable-next-line
   }, []);
 
+  if (!feed) return null;
+  if (feed.length <= 0) return <div>No users found in feed.</div>;
+
   return (
-    feed && (
-      <div className="flex justify-center items-center my-12 flex-col">
-        {feed.map((user, index) => (
-          <UserCard key={index} user={user} />
-        ))}
-      </div>
-    )
+    <div>
+      {feed.map((user) => (
+        <UserCard key={user._id} user={user} />
+      ))}
+    </div>
   );
 };
 

@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("devesh@gmail.com");
-  const [password, setPassword] = useState("Devesh@123");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   //now we need a hook useDispatch to dispatch actions to the store, so we can add data to the store

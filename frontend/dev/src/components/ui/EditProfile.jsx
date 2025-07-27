@@ -103,7 +103,7 @@ const EditProfile = ({ user }) => {
                   type="number"
                   className="grow"
                   placeholder="Age"
-                  value={age}
+                  value={age || ""}
                   onChange={(e) => setAge(e.target.value)}
                 />
               </label>
