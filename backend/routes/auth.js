@@ -22,8 +22,15 @@ authRouter.post("/signup", async (req, res) => {
       password: passwordHash,
     });
     //saving user to db
-    await user.save();
-    res.send("User have been saved to db ✅");
+    const savedUser = await user.save();
+    const token = await savedUser.getJWT();
+
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+
+    res.cookie("token", token, {});
+    res.json({ message: "User have been saved to db ✅", data: savedUser });
   } catch (error) {
     res.status(404).send("Error " + error);
   }
@@ -33,15 +40,19 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
     const user = await User.findOne({ emailId: emailId });
+
     if (!user) {
       throw new Error("Invalid Credentials 😵");
     }
+
     const isPasswordValid = await user.validatePassword(password);
     if (isPasswordValid) {
       //if password is valid, create a JWT token for the user
       const token = await user.getJWT(); //getJWT() : user model
       //send the token to the user in a cookie
-      res.cookie("token", token);
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
       res.status(200).send(user);
     } else {
       throw new Error("Invalid Credentials 😵");
