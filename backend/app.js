@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", //this is used to allow cross-origin requests
+    origin: ["http://localhost:5173", "https://dev-tinder-e8v7.vercel.app"], //this is used to allow cross-origin requests
     credentials: true, //this is used to allow cookies to be sent with the request
     // methods: ["GET", "POST", "PUT", "DELETE"], //allowed methods
     // allowedHeaders: ["Content-Type", "Authorization"], //allowed headers
