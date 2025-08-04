@@ -3,3 +3,250 @@
 @tailwind utilities;
 
 @plugin "daisyui";
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Custom gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Hover animations */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Button animations */
+.btn-modern {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-modern::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.btn-modern:hover::before {
+  left: 100%;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Line clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom focus styles */
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+}
+
+/* Improved card shadows */
+.card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Badge improvements */
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Improved dropdown */
+.dropdown-content {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+}
+/* Fix hover text visibility */
+.btn:hover {
+  color: inherit !important;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #374151 !important;
+}
+
+.btn-outline:hover {
+  color: #374151 !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Dropdown menu hover fixes */
+.dropdown-content li > a:hover,
+.dropdown-content li > button:hover {
+  background-color: rgba(147, 51, 234, 0.1) !important;
+  color: #7c3aed !important;
+}
+
+/* Navigation hover fixes */
+.navbar .btn-ghost:hover {
+  background-color: rgba(147, 51, 234, 0.1) !important;
+  color: #7c3aed !important;
+}
+
+/* Link hover fixes */
+a:hover {
+  color: #7c3aed !important;
+}
+
+/* Card hover text fixes */
+.card:hover .text-gray-600,
+.card:hover .text-gray-700 {
+  color: #374151 !important;
+}
+
+/* Badge hover fixes */
+.badge:hover {
+  color: inherit !important;
+}
+
+/* Menu item hover fixes */
+.menu li > *:hover {
+  background-color: rgba(147, 51, 234, 0.1) !important;
+  color: #7c3aed !important;
+}
+
+/* Button text contrast improvements */
+.btn-primary {
+  color: white !important;
+}
+
+.btn-primary:hover {
+  color: white !important;
+}
+
+/* Ensure good contrast for all interactive elements */
+.hover\:text-purple-700:hover {
+  color: #6b21a8 !important;
+}
+
+.hover\:text-blue-500:hover {
+  color: #3b82f6 !important;
+}
+
+.hover\:text-red-700:hover {
+  color: #b91c1c !important;
+}
+/* Additional hover contrast fixes */
+.btn-ghost:hover,
+.btn-outline:hover {
+  color: #374151 !important;
+}
+
+/* Ensure gradient buttons maintain white text on hover */
+.bg-gradient-to-r:hover {
+  color: white !important;
+}
+
+/* Fix DaisyUI button hover states */
+.btn:hover:not(.btn-primary):not(.bg-gradient-to-r) {
+  color: #374151 !important;
+}
+
+/* Specific fixes for navigation */
+.navbar .btn:hover {
+  color: #7c3aed !important;
+}
+
+.navbar .btn.bg-gradient-to-r:hover {
+  color: transparent !important;
+}
+
+/* Dropdown specific fixes */
+.dropdown-content .menu li > *:hover {
+  color: #7c3aed !important;
+  background-color: rgba(147, 51, 234, 0.1) !important;
+}
+
+/* Link hover improvements */
+.text-purple-600:hover {
+  color: #7c3aed !important;
+}
+
+/* Badge hover fixes */
+.badge:hover {
+  opacity: 0.9;
+}

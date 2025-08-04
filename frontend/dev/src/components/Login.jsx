@@ -12,13 +12,14 @@ const Login = () => {
   const [lastname, setLastname] = useState("");
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  //now we need a hook useDispatch to dispatch actions to the store, so we can add data to the store
   const dispatch = useDispatch();
-  //authRouter.post("/login"
+
   const handleLogin = async () => {
-    //making api call to our backend
+    setIsLoading(true);
+    setError("");
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -27,18 +28,21 @@ const Login = () => {
           password,
         },
         {
-          withCredentials: true, // this will allow us to send cookies with the request
+          withCredentials: true,
         }
       );
       dispatch(addUser(res.data));
       return navigate("/feed");
-      //dispatching the action to add user data to the store, basically we are adding the user data to the redux store, so that we can access it in any component, this will help us manage the user state more effectively as we can access it from any component without passing it down as props
     } catch (error) {
       setError(error?.response?.data || "Login failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignup = async () => {
+    setIsLoading(true);
+    setError("");
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
@@ -52,82 +56,126 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data);
-
       dispatch(addUser(res.data.data));
       return navigate("/profile");
     } catch (error) {
       setError(error?.response?.data || "Signup failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center py-40">
-      <div className="card bg-base-300 w-96 shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title">{isLoginForm ? "Log In" : "Sign Up"}</h2>
-          {/* input */}
-          <div>
+    <div className="min-h-screen gradient-bg flex justify-center items-center px-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl p-8 hover-lift">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="text-4xl mb-4">👩🏻‍💻</div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+              {isLoginForm ? "Welcome Back" : "Join devTinder"}
+            </h2>
+            <p className="text-gray-600">
+              {isLoginForm
+                ? "Sign in to continue your journey"
+                : "Create your developer profile"}
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="space-y-6">
             {!isLoginForm && (
-              <>
-                <label className="input">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-control">
                   <input
                     type="text"
-                    className="grow"
-                    placeholder="Firstname"
+                    className="input input-bordered w-full bg-white/50 backdrop-blur-sm border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
+                    placeholder="First name"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
                   />
-                </label>
-                <label className="input mt-6">
+                </div>
+                <div className="form-control">
                   <input
                     type="text"
-                    className="grow"
-                    placeholder="Lastname"
+                    className="input input-bordered w-full bg-white/50 backdrop-blur-sm border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
+                    placeholder="Last name"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
                   />
-                </label>
-              </>
+                </div>
+              </div>
             )}
-            <label className="input mt-6">
+
+            <div className="form-control">
               <input
                 type="email"
-                className="grow"
-                placeholder="Email"
+                className="input input-bordered w-full bg-white/50 backdrop-blur-sm border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
+                placeholder="Email address"
                 value={emailId}
                 onChange={(e) => setEmailId(e.target.value)}
               />
-            </label>
-            <label className="input mt-6">
+            </div>
+
+            <div className="form-control">
               <input
                 type="password"
-                className="grow"
+                className="input input-bordered w-full bg-white/50 backdrop-blur-sm border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all duration-300"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-            </label>
-          </div>
-          <p className="text-red-500">{error}</p>
-          <div className="card-actions justify-end mt-2">
+            </div>
+
+            {error && (
+              <div className="alert alert-error bg-red-50 border-red-200 text-red-700">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="stroke-current shrink-0 h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>{error}</span>
+              </div>
+            )}
+
             <button
-              className="btn btn-primary"
+              className="btn w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 border-none text-white font-semibold py-3 rounded-xl btn-modern shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:text-white"
               onClick={isLoginForm ? handleLogin : handleSignup}
+              disabled={isLoading}
             >
-              {isLoginForm ? "Log In" : "Sign Up"}
+              {isLoading ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : isLoginForm ? (
+                "Sign In"
+              ) : (
+                "Create Account"
+              )}
             </button>
           </div>
-          <Link
-            onClick={() => {
-              setIsLoginForm(!isLoginForm);
-            }}
-            className="text-center mt-2 cursor-pointer hover:text-blue-500"
-          >
-            {isLoginForm
-              ? "Don't have an account?"
-              : "Already have an account?"}
-          </Link>
+
+          {/* Toggle Form */}
+          <div className="text-center mt-8">
+            <p className="text-gray-600">
+              {isLoginForm ? "New to devTinder?" : "Already have an account?"}
+            </p>
+            <Link
+              onClick={() => {
+                setIsLoginForm(!isLoginForm);
+                setError("");
+              }}
+              className="text-purple-600 hover:text-purple-800 font-semibold cursor-pointer transition-colors duration-300"
+            >
+              {isLoginForm ? "Create an account" : "Sign in instead"}
+            </Link>
+          </div>
         </div>
       </div>
     </div>

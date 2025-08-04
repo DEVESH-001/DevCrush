@@ -11,14 +11,14 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
-  //refreshing page will not logout the user
+
   const fetchUser = async () => {
     if (userData) return;
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true, //as we got response back from the backend, we can use it to set the user state in redux store, & to update the store use dispatch fnc
+        withCredentials: true,
       });
-      dispatch(addUser(res.data)); //dispatching the action to add user data to the store
+      dispatch(addUser(res.data));
     } catch (error) {
       if (error.status === 401) {
         navigate("/login");
@@ -32,9 +32,9 @@ const Body = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
       <Navbar />
-      <main>
+      <main className="relative">
         <Outlet />
       </main>
       {/* <Footer /> */}
