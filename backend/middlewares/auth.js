@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const { JWT_SECRET } = process.env;
+
 
 const userAuth = async (req, res, next) => {
   try {
@@ -10,7 +12,7 @@ const userAuth = async (req, res, next) => {
       return res.status(401).send("Please loggin");
     }
     // validate token
-    const decodedObj = await jwt.verify(token, "your_jwt_secret@1");
+    const decodedObj = await jwt.verify(token, JWT_SECRET);
     const { _id } = decodedObj;
     // find the user
     const user = await User.findById(_id);
