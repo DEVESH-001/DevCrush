@@ -2,8 +2,9 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const { ConnectionRequest } = require("../models/connectionRequest");
 const User = require("../models/userModel");
-
 const requestRouter = express.Router();
+
+const sendEmail = require("../utils/sendEmail");
 
 requestRouter.post(
   "/request/send/:status/:toUserId",
@@ -49,6 +50,14 @@ requestRouter.post(
       });
       //saving the connection request to the database
       const data = await connectionRequest.save(); //whenever we call this save method it will be called pre-saved (connectionRequestSchema.pre)
+
+      //send email using AWS SES
+      const emailResponse = await sendEmail.run(
+        "You have a new connection request from " + req.user.firstname,
+        toUser.emailId
+      );
+
+      console.log("Email sent! Message ID:", emailResponse);
 
       res.json({
         message:
