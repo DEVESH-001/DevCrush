@@ -33,7 +33,7 @@ connectDB()
   .then(() => {
     console.log("DB connected successfully");
     //after connecting to db, server will run (good approach)
-    app.listen(4000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is running");
     });
   })
